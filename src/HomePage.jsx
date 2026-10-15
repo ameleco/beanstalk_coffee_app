@@ -1,8 +1,8 @@
 // src/HomePage.jsx
 import { useEffect } from "react";
-import CloudCap from "./components/CloudCap.jsx";
-import LogoHeader from "./components/LogoHeader.jsx";
-import LeftSideVine from "./components/LeftSideVine.jsx";
+import CloudCap from "./components/CloudCap";
+import LogoHeader from "./components/LogoHeader";
+import LeftSideVine from "./components/LeftSideVine";
 
 export default function HomePage() {
   useEffect(() => {
@@ -11,48 +11,43 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#f8f5f1] text-[#2f2b26] font-sans pb-24 relative overflow-x-hidden">
-      {/* =============================
-          BACKGROUND: vine + planter
-          ============================= */}
-       <div className="absolute inset-0 z-0 pointer-events-none overflow-visible">
-        <div className="absolute left-0 bottom-0">
-          {/* Vine */}
-          <div className="absolute left-35 bottom-96">
-            <LeftSideVine />
-          </div>
-
-          {/* Planter */}
-          <div className="absolute left-4 bottom-20 w-[110px] h-[90px]">
-            {/* Rim */}
-            <div
-              className="absolute top-0 left-0 w-full h-[22px] rounded-[14px] bg-[#c96f3b]"
-              style={{ boxShadow: "inset 0 -3px 0 rgba(0,0,0,0.12)" }}
-            />
-            {/* Body */}
-            <div
-              className="absolute top-[14px] left-[6px] w-[calc(100%-12px)] h-[68px] rounded-b-[18px] bg-gradient-to-b from-[#d97b43] to-[#b85f2f]"
-              style={{ borderTopLeftRadius: 6, borderTopRightRadius: 6 }}
-            />
-          </div>
+    // ✅ REMOVED overflow-hidden so leaves/curlies don’t get clipped
+    <div className="min-h-screen bg-[#f8f5f1] text-[#2f2b26] font-sans pb-24 relative">
+      {/* =========================================================
+          Background layer: vine + planter (behind everything)
+          ========================================================= */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-visible">
+        {/* 🌱 Planter pot (sits above bottom nav) */}
+        <div className="absolute left-4 bottom-20 w-[110px] h-[90px]">
+          {/* Rim */}
+          <div
+            className="absolute top-0 left-0 w-full h-[22px] rounded-[14px] bg-[#c96f3b]"
+            style={{ boxShadow: "inset 0 -3px 0 rgba(0,0,0,0.12)" }}
+          />
+          {/* Body */}
+          <div
+            className="absolute top-[14px] left-[6px] w-[calc(100%-12px)] h-[68px] rounded-b-[18px] bg-gradient-to-b from-[#d97b43] to-[#b85f2f]"
+            style={{ borderTopLeftRadius: 6, borderTopRightRadius: 6 }}
+          />
         </div>
+
+        {/* Decorative vine */}
+        <LeftSideVine />
       </div>
 
-      {/* =============================
-          HEADER
-          ============================= */}
+      {/* cloud header (over vine) */}
       <CloudCap height={170} />
 
+      {/* logo sitting on cloud */}
       <div className="relative z-20">
         <LogoHeader />
       </div>
 
-      {/* =============================
-          MAIN CONTENT
-          ============================= */}
-      <div className="relative z-10 pl-10 pt-28">
-        {/* Hero */}
+      {/* shift content right so vine doesn't cover it */}
+      <div className="relative pl-10 z-10 pt-28">
+        {/* Hero Section */}
         <div className="text-center py-6 px-4">
+          <div className="h-10" />
           <h2 className="text-2xl mt-4 font-bold">Howdy, Alex!</h2>
           <p className="text-gray-600">Ready for your favorite drink?</p>
           <button className="mt-4 bg-[#4e7a47] hover:bg-[#3b5d35] text-white rounded-full px-6 py-2 text-lg shadow-md">
@@ -75,7 +70,7 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* Featured */}
+        {/* Featured Section */}
         <div className="px-4 mb-8">
           <h3 className="font-semibold text-lg mb-3">Featured Drinks</h3>
           <div className="grid grid-cols-2 gap-4">
@@ -99,9 +94,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* =============================
-          BOTTOM NAV
-          ============================= */}
+      {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around py-2 shadow-inner z-40">
         {[
           { emoji: "🏠", label: "Home" },
@@ -120,4 +113,3 @@ export default function HomePage() {
     </div>
   );
 }
-
